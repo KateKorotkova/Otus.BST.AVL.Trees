@@ -24,6 +24,8 @@
         public void Remove(int value)
         {
             var nodeToRemove = Search(value);
+            if (nodeToRemove == null)
+                return;
 
             switch (nodeToRemove.NodeType)
             {

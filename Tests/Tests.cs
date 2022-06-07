@@ -118,21 +118,16 @@ namespace Tests
             //to better tests should feel tree by hands
 
             var tree = new BinarySearchTree();
+
+            var elements = new[] {20, 10, 3, 40, 99, 34, 32, 19, 15, 5};
             
-            tree.Inset(20);
-            tree.Inset(10);
-            tree.Inset(3);
-            tree.Inset(40);
-            tree.Inset(99);
-            tree.Inset(34);
-            tree.Inset(32);
-            tree.Inset(19);
-            tree.Inset(15);
-            tree.Inset(5);
+            foreach (var element in elements)
+            {
+                tree.Inset(element);
+            }
 
             return tree;
         }
-        
 
         #endregion
     }
