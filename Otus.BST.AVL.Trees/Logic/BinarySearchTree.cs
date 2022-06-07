@@ -9,7 +9,7 @@
         {
             if (Root == null)
             {
-                Root = new Node(value);
+                Root = new Node(value, null);
                 return;
             }
 
@@ -21,6 +21,32 @@
             return GetNode(Root, value);
         }
 
+        public void Remove(int value)
+        {
+            var nodeToRemove = Search(value);
+            
+            if (nodeToRemove.WithoutChildren)
+            {
+                UpdateParentPointers(nodeToRemove, null);
+            }
+            else if (nodeToRemove.WithSingleChildren)
+            {
+                var child = nodeToRemove.GetSingleChildren;
+                UpdateParentPointers(nodeToRemove, child);
+            }
+            else
+            {
+                var minNodeInSubtree = GetMinNodeInSubtree(nodeToRemove.RightChild);
+                UpdateParentPointers(minNodeInSubtree, null);
+
+                minNodeInSubtree.Parent = nodeToRemove.Parent;
+                minNodeInSubtree.LeftChild = nodeToRemove.LeftChild;
+                minNodeInSubtree.RightChild = nodeToRemove.RightChild;
+                
+                UpdateParentPointers(nodeToRemove, minNodeInSubtree);
+            }
+        }
+
 
         #region Support methods
 
@@ -30,7 +56,7 @@
             {
                 if (currentNode.LeftChild == null)
                 {
-                    currentNode.LeftChild = new Node(value);
+                    currentNode.LeftChild = new Node(value, currentNode);
                     return;
                 }
 
@@ -40,7 +66,7 @@
             {
                 if (currentNode.RightChild == null)
                 {
-                    currentNode.RightChild = new Node(value);
+                    currentNode.RightChild = new Node(value, currentNode);
                     
                     return;
                 }
@@ -65,6 +91,33 @@
             {
                 return GetNode(currentNode.RightChild, value);
             }
+        }
+
+        private static void UpdateParentPointers(Node nodeToRemove, Node node)
+        {
+            var parent = nodeToRemove.Parent;
+            
+            if (parent.LeftChild == nodeToRemove)
+            {
+                parent.LeftChild = node;
+            }
+            else if (parent.RightChild == nodeToRemove)
+            {
+                parent.RightChild = node;
+            }
+        }
+
+        private Node GetMinNodeInSubtree(Node subtreeRoot)
+        {
+            var miNode = subtreeRoot;
+
+            while (subtreeRoot.LeftChild != null)
+            {
+                miNode = subtreeRoot.LeftChild;
+                subtreeRoot = miNode;
+            }
+
+            return miNode;
         }
 
         #endregion

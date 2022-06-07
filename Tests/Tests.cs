@@ -53,7 +53,64 @@ namespace Tests
             Assert.That(sixthElement?.Value, Is.Null);
         }
 
-        
+        [Test]
+        public void Can_Remove_List_In_Binary_Search_Tree()
+        {
+            var tree = CreateTree();
+
+            tree.Remove(15);
+
+            //to better tests should get value by hands
+            var removedValue = tree.Search(15);
+
+            Assert.That(removedValue?.Value, Is.Null);
+        }
+
+        [Test]
+        public void Can_Remove_Node_With_One_Child_From_Right_In_Binary_Search_Tree()
+        {
+            var tree = CreateTree();
+
+            tree.Remove(19);
+
+            //to better tests should get value by hands
+            var removedValue = tree.Search(19);
+
+            Assert.That(removedValue?.Value, Is.Null);
+            Assert.That(tree.Root.LeftChild.RightChild.Value, Is.EqualTo(15));
+        }
+
+        [Test]
+        public void Can_Remove_Node_With_Two_Children_In_Binary_Search_Tree()
+        {
+            var tree = CreateTree();
+
+            tree.Remove(10);
+
+            //to better tests should get value by hands
+            var removedValue = tree.Search(10);
+
+            Assert.That(removedValue?.Value, Is.Null);
+            Assert.That(tree.Root.LeftChild.Value, Is.EqualTo(15));
+            Assert.That(tree.Root.LeftChild.RightChild.Value, Is.EqualTo(19));
+            Assert.That(tree.Root.LeftChild.RightChild.LeftChild?.Value, Is.Null);
+        }
+
+        [Test]
+        public void Can_Remove_Node_With_One_Child_From_Left_In_Binary_Search_Tree()
+        {
+            var tree = CreateTree();
+
+            tree.Remove(3);
+
+            //to better tests should get value by hands
+            var removedValue = tree.Search(3);
+
+            Assert.That(removedValue?.Value, Is.Null);
+            Assert.That(tree.Root.LeftChild.LeftChild.Value, Is.EqualTo(5));
+        }
+
+
         #region Support methods
 
         private BinarySearchTree CreateTree()
@@ -71,6 +128,7 @@ namespace Tests
             tree.Inset(32);
             tree.Inset(19);
             tree.Inset(15);
+            tree.Inset(5);
 
             return tree;
         }
