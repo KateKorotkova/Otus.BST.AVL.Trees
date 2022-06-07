@@ -13,7 +13,7 @@
                 return;
             }
 
-            FillNode(Root,value);
+            AddNode(Root,value);
         }
 
         public Node Search(int value)
@@ -24,54 +24,56 @@
         public void Remove(int value)
         {
             var nodeToRemove = Search(value);
-            
-            if (nodeToRemove.WithoutChildren)
-            {
-                UpdateParentPointers(nodeToRemove, null);
-            }
-            else if (nodeToRemove.WithSingleChildren)
-            {
-                var child = nodeToRemove.GetSingleChildren;
-                UpdateParentPointers(nodeToRemove, child);
-            }
-            else
-            {
-                var minNodeInSubtree = GetMinNodeInSubtree(nodeToRemove.RightChild);
-                UpdateParentPointers(minNodeInSubtree, null);
 
-                minNodeInSubtree.Parent = nodeToRemove.Parent;
-                minNodeInSubtree.LeftChild = nodeToRemove.LeftChild;
-                minNodeInSubtree.RightChild = nodeToRemove.RightChild;
-                
-                UpdateParentPointers(nodeToRemove, minNodeInSubtree);
+            switch (nodeToRemove.NodeType)
+            {
+                case NodeType.WithoutChildren:
+                    ReplaceNodeInParent(nodeToRemove, null);
+                    break;
+
+                case NodeType.WithSingleChild:
+                    var child = nodeToRemove.GetSingleChildren;
+                    ReplaceNodeInParent(nodeToRemove, child);
+                    break;
+
+                case NodeType.WithTwoChildren:
+                    var minNodeInSubtree = GetMinNodeInSubtree(nodeToRemove.RightChild);
+                    ReplaceNodeInParent(minNodeInSubtree, null);
+
+                    minNodeInSubtree.Parent = nodeToRemove.Parent;
+                    minNodeInSubtree.LeftChild = nodeToRemove.LeftChild;
+                    minNodeInSubtree.RightChild = nodeToRemove.RightChild;
+
+                    ReplaceNodeInParent(nodeToRemove, minNodeInSubtree);
+                    break;
             }
         }
 
 
         #region Support methods
 
-        private void FillNode(Node currentNode, int value)
+        private void AddNode(Node currentRoot, int value)
         {
-            if (value < currentNode.Value)
+            if (value < currentRoot.Value)
             {
-                if (currentNode.LeftChild == null)
+                if (currentRoot.LeftChild == null)
                 {
-                    currentNode.LeftChild = new Node(value, currentNode);
+                    currentRoot.LeftChild = new Node(value, currentRoot);
                     return;
                 }
 
-                FillNode(currentNode.LeftChild, value);
+                AddNode(currentRoot.LeftChild, value);
             }
             else
             {
-                if (currentNode.RightChild == null)
+                if (currentRoot.RightChild == null)
                 {
-                    currentNode.RightChild = new Node(value, currentNode);
+                    currentRoot.RightChild = new Node(value, currentRoot);
                     
                     return;
                 }
 
-                FillNode(currentNode.RightChild, value);
+                AddNode(currentRoot.RightChild, value);
             }
         }
 
@@ -83,17 +85,14 @@
             if (value == currentNode.Value)
                 return currentNode;
 
-            if (value < currentNode.Value)
-            {
-                return GetNode(currentNode.LeftChild, value);
-            }
-            else
-            {
-                return GetNode(currentNode.RightChild, value);
-            }
+            var nextNode = value < currentNode.Value 
+                ? currentNode.LeftChild 
+                : currentNode.RightChild;
+
+            return GetNode(nextNode, value);
         }
 
-        private static void UpdateParentPointers(Node nodeToRemove, Node node)
+        private static void ReplaceNodeInParent(Node nodeToRemove, Node node)
         {
             var parent = nodeToRemove.Parent;
             

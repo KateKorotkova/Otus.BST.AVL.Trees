@@ -11,7 +11,6 @@ namespace Otus.BST.AVL.Trees.Logic
         public Node LeftChild;
         public Node RightChild;
 
-        public bool WithoutChildren => LeftChild == null && RightChild == null;
         public bool WithSingleChildren => (LeftChild == null && RightChild != null) || (RightChild == null && LeftChild != null);
 
         public Node GetSingleChildren
@@ -22,6 +21,20 @@ namespace Otus.BST.AVL.Trees.Logic
                     throw new ApplicationException("Node has more than one child");
 
                 return LeftChild ?? RightChild;
+            }
+        }
+
+        public NodeType NodeType
+        {
+            get
+            {
+                if (LeftChild == null && RightChild == null)
+                    return NodeType.WithoutChildren;
+
+                if (WithSingleChildren)
+                    return NodeType.WithSingleChild;
+
+                return NodeType.WithTwoChildren;
             }
         }
 
@@ -36,5 +49,12 @@ namespace Otus.BST.AVL.Trees.Logic
         {
             return Value.ToString();
         }
+    }
+
+    public enum NodeType
+    {
+        WithoutChildren,
+        WithSingleChild,
+        WithTwoChildren
     }
 }
