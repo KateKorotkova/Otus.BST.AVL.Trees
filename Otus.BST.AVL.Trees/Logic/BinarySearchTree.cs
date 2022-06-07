@@ -16,6 +16,11 @@
             FillNode(Root,value);
         }
 
+        public Node Search(int value)
+        {
+            return GetNode(Root, value);
+        }
+
 
         #region Support methods
 
@@ -41,6 +46,24 @@
                 }
 
                 FillNode(currentNode.RightChild, value);
+            }
+        }
+
+        private Node GetNode(Node currentNode, int value)
+        {
+            if (currentNode == null)
+                return null;
+
+            if (value == currentNode.Value)
+                return currentNode;
+
+            if (value < currentNode.Value)
+            {
+                return GetNode(currentNode.LeftChild, value);
+            }
+            else
+            {
+                return GetNode(currentNode.RightChild, value);
             }
         }
 

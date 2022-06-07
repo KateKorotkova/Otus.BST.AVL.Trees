@@ -7,5 +7,6 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=79d67eea_002D39fe_002D4fba_002D9c43_002D4fa82d207f89/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::97BAE51C-CBF7-45F0-9737-66BD748DE1E2::.NETCoreApp,Version=v3.1::Tests.Tests.Can_Insert_To_Binary_Search_Tree&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::97BAE51C-CBF7-45F0-9737-66BD748DE1E2::.NETCoreApp,Version=v3.1::Tests.Tests.Can_Search_In_Binary_Search_Tree&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
