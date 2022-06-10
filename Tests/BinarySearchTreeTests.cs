@@ -5,11 +5,6 @@ namespace Tests
 {
     public class BinarySearchTreeTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         public void Can_Insert_To_Binary_Search_Tree()
         {
