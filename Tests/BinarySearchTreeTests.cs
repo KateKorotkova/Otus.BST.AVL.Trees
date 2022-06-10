@@ -3,7 +3,7 @@ using Otus.BST.AVL.Trees.Logic;
 
 namespace Tests
 {
-    public class Tests
+    public class BinarySearchTreeTests
     {
         [SetUp]
         public void Setup()
