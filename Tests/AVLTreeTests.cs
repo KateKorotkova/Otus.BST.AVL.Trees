@@ -89,6 +89,59 @@ namespace Tests
             Assert.That(tree.Root.LeftChild.RightChild.Value, Is.EqualTo(110));
         }
 
+        [Test]
+        public void Can_Do_Big_Right_Rotation()
+        {
+            var tree = new AVLTree();
+            tree.Inset(80);
+            tree.Inset(50);
+            tree.Inset(40);
+            tree.Inset(70);
+            tree.Inset(60);
+            tree.Inset(75);
+            tree.Inset(100);
+
+
+            var rootToRotate = tree.Search(70);
+            tree.DoBigRightRotation(rootToRotate);
+
+
+            Assert.That(tree.Root.Value, Is.EqualTo(70));
+            Assert.That(tree.Root.LeftChild.Value, Is.EqualTo(50));
+            Assert.That(tree.Root.LeftChild.LeftChild.Value, Is.EqualTo(40));
+            Assert.That(tree.Root.LeftChild.RightChild.Value, Is.EqualTo(60));
+
+            Assert.That(tree.Root.RightChild.Value, Is.EqualTo(80));
+            Assert.That(tree.Root.RightChild.LeftChild.Value, Is.EqualTo(75));
+            Assert.That(tree.Root.RightChild.RightChild.Value, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void Can_Do_Big_Left_Rotation()
+        {
+            var tree = new AVLTree();
+            tree.Inset(80);
+            tree.Inset(70);
+            tree.Inset(100);
+            tree.Inset(90);
+            tree.Inset(85);
+            tree.Inset(95);
+            tree.Inset(120);
+
+
+            var rootToRotate = tree.Search(90);
+            tree.DoBigLeftRotation(rootToRotate);
+
+            Assert.That(tree.Root.Value, Is.EqualTo(90));
+            Assert.That(tree.Root.LeftChild.Value, Is.EqualTo(80));
+            Assert.That(tree.Root.LeftChild.LeftChild.Value, Is.EqualTo(70));
+            Assert.That(tree.Root.LeftChild.RightChild.Value, Is.EqualTo(85));
+
+            Assert.That(tree.Root.RightChild.Value, Is.EqualTo(100));
+            Assert.That(tree.Root.RightChild.LeftChild.Value, Is.EqualTo(95));
+            Assert.That(tree.Root.RightChild.RightChild.Value, Is.EqualTo(120));
+        }
+
         //[Test]
         //public void Can_Insert_To_Binary_Search_Tree()
         //{

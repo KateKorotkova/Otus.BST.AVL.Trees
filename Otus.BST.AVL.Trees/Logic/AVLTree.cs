@@ -67,7 +67,7 @@
             }
             else
             {
-                grandFather.LeftChild = rootToRotate;
+                ReplaceAVLNodeInParent(parent, rootToRotate);
                 rootToRotate.Parent = grandFather;
                 parent.Parent = rootToRotate;
             }
@@ -90,7 +90,7 @@
             }
             else
             {
-                grandFather.LeftChild = rootToRotate;
+                ReplaceAVLNodeInParent(parent, rootToRotate);
                 rootToRotate.Parent = grandFather;
                 parent.Parent = rootToRotate;
             }
@@ -102,15 +102,20 @@
             parent.LeftChild = exRightChild;
         }
 
-        public void DoBigLeftRotation()
+        public void DoBigRightRotation(AVLNode rootToRotate)
         {
-
+            DoSmallRightRotation(rootToRotate);
+            DoSmallLeftRotation(rootToRotate);
         }
 
-        public void DoBigRightRotation()
+        public void DoBigLeftRotation(AVLNode rootToRotate)
         {
-
+            DoSmallLeftRotation(rootToRotate);
+            var a = Root;
+            DoSmallRightRotation(rootToRotate);
         }
+
+        
 
 
         #region Support methods
@@ -155,17 +160,17 @@
             return GetAVLNode(nextAVLNode, value);
         }
 
-        private static void ReplaceAVLNodeInParent(AVLNode nodeToRemove, AVLNode node)
+        private static void ReplaceAVLNodeInParent(AVLNode nodeToRemove, AVLNode newNode)
         {
             var parent = nodeToRemove.Parent;
             
             if (parent.LeftChild == nodeToRemove)
             {
-                parent.LeftChild = node;
+                parent.LeftChild = newNode;
             }
             else if (parent.RightChild == nodeToRemove)
             {
-                parent.RightChild = node;
+                parent.RightChild = newNode;
             }
         }
 
