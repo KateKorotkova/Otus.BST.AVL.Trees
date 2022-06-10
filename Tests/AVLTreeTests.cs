@@ -47,6 +47,48 @@ namespace Tests
             Assert.That(tree.Root.LeftChild.RightChild.LeftChild.Value, Is.EqualTo(60));
         }
 
+        [Test]
+        public void Can_Do_Small_Right_Rotation_From_Root()
+        {
+            var tree = new AVLTree();
+            tree.Inset(80);
+            tree.Inset(70);
+            tree.Inset(100);
+            tree.Inset(90);
+            tree.Inset(110);
+
+            var rootToRotate = tree.Search(100);
+            tree.DoSmallRightRotation(rootToRotate);
+
+            Assert.That(tree.Root.Value, Is.EqualTo(100));
+            Assert.That(tree.Root.LeftChild.Value, Is.EqualTo(80));
+            Assert.That(tree.Root.LeftChild.LeftChild.Value, Is.EqualTo(70));
+            Assert.That(tree.Root.LeftChild.RightChild.Value, Is.EqualTo(90));
+            Assert.That(tree.Root.RightChild.Value, Is.EqualTo(110));
+        }
+
+        [Test]
+        public void Can_Do_Small_Right_Rotation_Not_From_Root()
+        {
+            var tree = new AVLTree();
+            tree.Inset(200);
+            tree.Inset(80);
+            tree.Inset(70);
+            tree.Inset(100);
+            tree.Inset(90);
+            tree.Inset(110);
+
+            var rootToRotate = tree.Search(100);
+            tree.DoSmallRightRotation(rootToRotate);
+
+            Assert.That(tree.Root.Value, Is.EqualTo(200));
+            Assert.That(tree.Root.LeftChild.Value, Is.EqualTo(100));
+            Assert.That(tree.Root.LeftChild.LeftChild.Value, Is.EqualTo(80));
+            Assert.That(tree.Root.LeftChild.LeftChild.LeftChild.Value, Is.EqualTo(70));
+            Assert.That(tree.Root.LeftChild.LeftChild.RightChild.Value, Is.EqualTo(90));
+            Assert.That(tree.Root.LeftChild.RightChild.Value, Is.EqualTo(110));
+        }
+
         //[Test]
         //public void Can_Insert_To_Binary_Search_Tree()
         //{

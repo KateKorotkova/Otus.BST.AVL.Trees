@@ -56,9 +56,27 @@
 
         }
 
-        public void DoSmallRightRotation()
+        public void DoSmallRightRotation(AVLNode rootToRotate)
         {
+            var parent = rootToRotate.Parent;
+            var grandFather = rootToRotate.Parent.Parent;
+            if (grandFather == null)
+            {
+                rootToRotate.Parent = null;
+                Root = rootToRotate;
+            }
+            else
+            {
+                grandFather.LeftChild = rootToRotate;
+                rootToRotate.Parent = grandFather;
+                parent.Parent = rootToRotate;
+            }
 
+            var exLeftChild = rootToRotate.LeftChild;
+
+            rootToRotate.LeftChild = parent;
+
+            parent.RightChild = exLeftChild;
         }
 
         public void DoSmallLeftRotation(AVLNode rootToRotate)
