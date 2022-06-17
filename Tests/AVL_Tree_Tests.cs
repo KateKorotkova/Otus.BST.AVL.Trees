@@ -1,9 +1,9 @@
 using NUnit.Framework;
-using Otus.BST.AVL.Trees.Logic;
+using Otus.BST.AVL.Trees.Logic.AVL;
 
 namespace Tests
 {
-    public class AVLTreeTests
+    public class AVL_Tree_Tests
     {
         [Test]
         public void Can_Do_Small_Left_Rotation_From_Root()
@@ -15,7 +15,7 @@ namespace Tests
             tree.InsetWithoutBalancing(40);
             tree.InsetWithoutBalancing(60);
 
-            var rootToRotate = tree.Search(50);
+            var rootToRotate = tree.Get(50);
             tree.DoSmallLeftRotation(rootToRotate);
 
             Assert.That(tree.Root.Value, Is.EqualTo(50));
@@ -36,7 +36,7 @@ namespace Tests
             tree.InsetWithoutBalancing(40);
             tree.InsetWithoutBalancing(60);
 
-            var rootToRotate = tree.Search(50);
+            var rootToRotate = tree.Get(50);
             tree.DoSmallLeftRotation(rootToRotate);
 
             Assert.That(tree.Root.Value, Is.EqualTo(200));
@@ -57,7 +57,7 @@ namespace Tests
             tree.InsetWithoutBalancing(90);
             tree.InsetWithoutBalancing(110);
 
-            var rootToRotate = tree.Search(100);
+            var rootToRotate = tree.Get(100);
             tree.DoSmallRightRotation(rootToRotate);
 
             Assert.That(tree.Root.Value, Is.EqualTo(100));
@@ -78,7 +78,7 @@ namespace Tests
             tree.InsetWithoutBalancing(90);
             tree.InsetWithoutBalancing(110);
 
-            var rootToRotate = tree.Search(100);
+            var rootToRotate = tree.Get(100);
             tree.DoSmallRightRotation(rootToRotate);
 
             Assert.That(tree.Root.Value, Is.EqualTo(200));
@@ -102,7 +102,7 @@ namespace Tests
             tree.InsetWithoutBalancing(100);
 
 
-            var rootToRotate = tree.Search(70);
+            var rootToRotate = tree.Get(70);
             tree.DoBigRightRotation(rootToRotate);
 
 
@@ -129,7 +129,7 @@ namespace Tests
             tree.InsetWithoutBalancing(120);
 
 
-            var rootToRotate = tree.Search(90);
+            var rootToRotate = tree.Get(90);
             tree.DoBigLeftRotation(rootToRotate);
 
             Assert.That(tree.Root.Value, Is.EqualTo(90));
@@ -146,15 +146,15 @@ namespace Tests
         public void Can_Insert()
         {
             var tree = new AVLTree();
-            tree.Inset(20);
-            tree.Inset(10);
-            tree.Inset(3);
-            tree.Inset(40);
-            tree.Inset(99);
-            tree.Inset(34);
-            tree.Inset(32);
-            tree.Inset(19);
-            tree.Inset(15);
+            tree.Insert(20);
+            tree.Insert(10);
+            tree.Insert(3);
+            tree.Insert(40);
+            tree.Insert(99);
+            tree.Insert(34);
+            tree.Insert(32);
+            tree.Insert(19);
+            tree.Insert(15);
 
             Assert.That(tree.Root.Value, Is.EqualTo(20));
             Assert.That(tree.Root.LeftChild.Value, Is.EqualTo(10));
@@ -172,11 +172,11 @@ namespace Tests
         {
             var tree = CreateTree();
 
-            var firstElement = tree.Search(20);
-            var secondElement = tree.Search(15);
-            var thirdElement = tree.Search(34);
-            var fifthElement = tree.Search(32);
-            var sixthElement = tree.Search(100500);
+            var firstElement = tree.Get(20);
+            var secondElement = tree.Get(15);
+            var thirdElement = tree.Get(34);
+            var fifthElement = tree.Get(32);
+            var sixthElement = tree.Get(100500);
 
             Assert.That(firstElement.Value, Is.EqualTo(20));
             Assert.That(secondElement.Value, Is.EqualTo(15));
@@ -193,7 +193,7 @@ namespace Tests
             tree.Remove(15);
 
             //to better tests should get value by hands
-            var removedValue = tree.Search(15);
+            var removedValue = tree.Get(15);
 
             Assert.That(removedValue?.Value, Is.Null);
         }
@@ -206,7 +206,7 @@ namespace Tests
             tree.Remove(19);
 
             //to better tests should get value by hands
-            var removedValue = tree.Search(19);
+            var removedValue = tree.Get(19);
 
             Assert.That(removedValue?.Value, Is.Null);
             Assert.That(tree.Root.LeftChild.RightChild.Value, Is.EqualTo(15));
@@ -220,7 +220,7 @@ namespace Tests
             tree.Remove(10);
 
             //to better tests should get value by hands
-            var removedValue = tree.Search(10);
+            var removedValue = tree.Get(10);
 
             Assert.That(removedValue?.Value, Is.Null);
             Assert.That(tree.Root.LeftChild.Value, Is.EqualTo(15));
@@ -236,7 +236,7 @@ namespace Tests
             tree.Remove(3);
 
             //to better tests should get value by hands
-            var removedValue = tree.Search(3);
+            var removedValue = tree.Get(3);
 
             Assert.That(removedValue?.Value, Is.Null);
             Assert.That(tree.Root.LeftChild.LeftChild.Value, Is.EqualTo(5));

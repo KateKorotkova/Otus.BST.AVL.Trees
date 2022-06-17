@@ -1,12 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
-using Otus.BST.AVL.Trees.Logic;
+using Otus.BST.AVL.Trees.Logic.Binary;
 
 namespace Tests
 {
-    public class TestsForPerformance
+    public class Binary_Search_Tree_Performance_Tests
     {
-        private Random _random = new Random();
+        private readonly Random _random = new Random();
 
 
         [TestCase(100)]
@@ -21,7 +21,7 @@ namespace Tests
             var watch = System.Diagnostics.Stopwatch.StartNew();
             for (var i = 0; i < treeSize / 10; i++)
             {
-                var res = tree.Search(_random.Next());
+                var res = tree.Get(_random.Next());
             }
             watch.Stop();
 
@@ -38,7 +38,7 @@ namespace Tests
             var watch = System.Diagnostics.Stopwatch.StartNew();
             for (var i = 0; i < treeSize / 10; i++)
             {
-                var res = tree.Search(_random.Next());
+                var res = tree.Get(_random.Next());
             }
             watch.Stop();
 
@@ -92,7 +92,7 @@ namespace Tests
 
             for(var i = 0; i < count; i++)
             {
-                tree.Inset(_random.Next());
+                tree.Insert(_random.Next());
             }
 
             return tree;
@@ -113,7 +113,7 @@ namespace Tests
 
             for (var i = 0; i < elements.Length; i++)
             {
-                tree.Inset(elements[i]);
+                tree.Insert(elements[i]);
             }
 
             return tree;
