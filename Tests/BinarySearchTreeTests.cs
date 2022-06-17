@@ -6,7 +6,7 @@ namespace Tests
     public class BinarySearchTreeTests
     {
         [Test]
-        public void Can_Insert_To_Binary_Search_Tree()
+        public void Can_Insert()
         {
             var tree = new BinarySearchTree();
             tree.Inset(20);
@@ -31,7 +31,7 @@ namespace Tests
         }
 
         [Test]
-        public void Can_Search_In_Binary_Search_Tree()
+        public void Can_Search()
         {
             var tree = CreateTree();
 
@@ -49,7 +49,7 @@ namespace Tests
         }
 
         [Test]
-        public void Can_Remove_List_In_Binary_Search_Tree()
+        public void Can_Remove_List()
         {
             var tree = CreateTree();
 
@@ -62,7 +62,7 @@ namespace Tests
         }
 
         [Test]
-        public void Can_Remove_Node_With_One_Child_From_Right_In_Binary_Search_Tree()
+        public void Can_Remove_Node_With_One_Child_From_Right()
         {
             var tree = CreateTree();
 
@@ -76,7 +76,7 @@ namespace Tests
         }
 
         [Test]
-        public void Can_Remove_Node_With_Two_Children_In_Binary_Search_Tree()
+        public void Can_Remove_Node_With_Two_Children()
         {
             var tree = CreateTree();
 
@@ -92,7 +92,7 @@ namespace Tests
         }
 
         [Test]
-        public void Can_Remove_Node_With_One_Child_From_Left_In_Binary_Search_Tree()
+        public void Can_Remove_Node_With_One_Child_From_Left()
         {
             var tree = CreateTree();
 

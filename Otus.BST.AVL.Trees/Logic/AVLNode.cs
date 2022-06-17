@@ -6,13 +6,12 @@ namespace Otus.BST.AVL.Trees.Logic
     {
         public int Value;
 
-        public int Height => GetHeight(this);
-
-        public AVLNode Parent;
-        public AVLNode LeftChild;
+        public AVLNode Parent { get; set; }
+        
+        public AVLNode LeftChild { get; set; }
         public int LeftHeight => GetHeight(LeftChild);
 
-        public AVLNode RightChild;
+        public AVLNode RightChild { get; set; }
         public int RightHeight => GetHeight(RightChild);
 
         public bool WithSingleChildren => (LeftChild == null && RightChild != null) || (RightChild == null && LeftChild != null);

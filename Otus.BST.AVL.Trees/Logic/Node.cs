@@ -4,7 +4,6 @@ namespace Otus.BST.AVL.Trees.Logic
 {
     public class Node
     {
-        //public int Key;
         public int Value;
 
         public Node Parent;
