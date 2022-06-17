@@ -7,6 +7,14 @@
 
         public void Inset(int value)
         {
+            InsetWithoutBalancing(value);
+
+            ReBalance(Root);
+        }
+
+        //for tests purposes
+        public void InsetWithoutBalancing(int value)
+        {
             if (Root == null)
             {
                 Root = new AVLNode(value, null);
@@ -49,17 +57,47 @@
                     ReplaceAVLNodeInParent(AVLNodeToRemove, minAVLNodeInSubtree);
                     break;
             }
+
+            ReBalance(Root);
         }
 
-        public void ReBalance()
+        public void ReBalance(AVLNode node)
         {
+            if (node.RightHeight - node.LeftHeight == 2)
+            {
+                var rightChild = node.RightChild;
+                var balanceDifference = rightChild?.RightHeight - rightChild?.LeftHeight;
 
+                if (balanceDifference < 0)
+                {
+                    DoBigRightRotation(node);
+                }
+
+                else
+                {
+                    DoSmallRightRotation(node.RightChild);
+                }
+            }
+            else if (node.LeftHeight - node.RightHeight == 2)
+            {
+                var leftChild = node.LeftChild;
+                var balanceDifference = leftChild?.RightHeight - leftChild?.LeftHeight;
+
+                if (balanceDifference > 0)
+                {
+                    DoBigLeftRotation(node);
+                }
+                else
+                {
+                    DoSmallLeftRotation(node.LeftChild);
+                }
+            }
         }
 
         public void DoSmallRightRotation(AVLNode rootToRotate)
         {
             var parent = rootToRotate.Parent;
-            var grandFather = rootToRotate.Parent.Parent;
+            var grandFather = parent?.Parent;
             if (grandFather == null)
             {
                 rootToRotate.Parent = null;
@@ -76,13 +114,16 @@
 
             rootToRotate.LeftChild = parent;
 
-            parent.RightChild = exLeftChild;
+            if (parent != null)
+            {
+                parent.RightChild = exLeftChild;
+            }
         }
 
         public void DoSmallLeftRotation(AVLNode rootToRotate)
         {
             var parent = rootToRotate.Parent;
-            var grandFather = rootToRotate.Parent.Parent;
+            var grandFather = parent?.Parent;
             if (grandFather == null)
             {
                 rootToRotate.Parent = null;
@@ -99,7 +140,11 @@
 
             rootToRotate.RightChild = parent;
 
-            parent.LeftChild = exRightChild;
+            if (parent != null)
+            {
+                parent.LeftChild = exRightChild;
+                parent.Parent = rootToRotate;
+            }
         }
 
         public void DoBigRightRotation(AVLNode rootToRotate)
@@ -111,7 +156,6 @@
         public void DoBigLeftRotation(AVLNode rootToRotate)
         {
             DoSmallLeftRotation(rootToRotate);
-            var a = Root;
             DoSmallRightRotation(rootToRotate);
         }
 
@@ -163,7 +207,9 @@
         private static void ReplaceAVLNodeInParent(AVLNode nodeToRemove, AVLNode newNode)
         {
             var parent = nodeToRemove.Parent;
-            
+            if (parent == null)
+                return;
+
             if (parent.LeftChild == nodeToRemove)
             {
                 parent.LeftChild = newNode;

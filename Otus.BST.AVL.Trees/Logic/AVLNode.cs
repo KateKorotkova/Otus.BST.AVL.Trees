@@ -4,14 +4,16 @@ namespace Otus.BST.AVL.Trees.Logic
 {
     public class AVLNode
     {
-        public int Height { get; set; }
-
-        //public int Key;
         public int Value;
+
+        public int Height => GetHeight(this);
 
         public AVLNode Parent;
         public AVLNode LeftChild;
+        public int LeftHeight => GetHeight(LeftChild);
+
         public AVLNode RightChild;
+        public int RightHeight => GetHeight(RightChild);
 
         public bool WithSingleChildren => (LeftChild == null && RightChild != null) || (RightChild == null && LeftChild != null);
 
@@ -47,9 +49,24 @@ namespace Otus.BST.AVL.Trees.Logic
             Parent = parent;
         }
 
+
+        #region Support mehods
+
         public override string ToString()
         {
             return Value.ToString();
         }
+
+        private int GetHeight(AVLNode node)
+        {
+            if (node == null)
+                return 0;
+
+            var maxChildHeight = Math.Max(node.LeftHeight, node.RightHeight);
+
+            return maxChildHeight + 1;
+        }
+
+        #endregion
     }
 }
